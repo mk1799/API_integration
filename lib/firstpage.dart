@@ -17,7 +17,7 @@ class _firstPageState extends State<firstPage> {
     //delay animation
     new Future.delayed(               
       const Duration(seconds: 4),
-      () => Navigator.push(
+      () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
           builder: (context) => loginPage(),
@@ -26,10 +26,7 @@ class _firstPageState extends State<firstPage> {
     );
   }
 
-  addStringToSF(String e) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('email', e);
-  }
+  
 
   @override
   Widget build(BuildContext context) {

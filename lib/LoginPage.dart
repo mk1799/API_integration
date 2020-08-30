@@ -9,7 +9,7 @@ class loginPage extends StatefulWidget {
 }
 
 class _loginPageState extends State<loginPage> {
-  String check_email = "admin@iroidsolutions.com";
+  String check_email = "admin@admin.com";
   String check_pass = "admin";
   String email, password;
   SharedPreferences logindata;
@@ -28,6 +28,10 @@ class _loginPageState extends State<loginPage> {
       return false;
     }
   }
+// addStringToSF(String e) async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     prefs.setString('email', e);
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +117,7 @@ class _loginPageState extends State<loginPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (BuildContext ctx) => myDashboard(
-                                  // email: email,
+                                 email: email,
                                 ),
                               ),
                             );
@@ -172,10 +176,6 @@ class _loginPageState extends State<loginPage> {
     );
   }
 }
-Future<http.Response> fetchpost() {
-  return http.get('https://www.iroidsolutions.com/interview/test.json');
-}
 
-  
   
 

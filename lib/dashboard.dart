@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:iroid/LoginPage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class myDashboard extends StatefulWidget {
-  myDashboard({Key key}) : super(key: key);
+  myDashboard({Key key,this.email}) : super(key: key);
+  final String email;
   @override
   _myDashboardState createState() => _myDashboardState();
 }
@@ -17,7 +20,7 @@ class _myDashboardState extends State<myDashboard> {
   @override
   void initState() {
     super.initState();
-    this.getjson();
+    getjson();
   }
 
   Future<String> getjson() async {
@@ -37,11 +40,19 @@ class _myDashboardState extends State<myDashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fetch Data Example'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.input), onPressed: () async{
+            SharedPreferences pref=await SharedPreferences.getInstance();
+            pref.remove('email');
+            Navigator.pushReplacement(context, MaterialPageRoute(builder: (BuildContext context)=>loginPage()));
+          }),
+        ],
+        title: Text('API Fetch Data'),
       ),
       body: ListView.builder(
           itemCount: data == null ? 0 : data.length,
           itemBuilder: (BuildContext context, int index) {
+            if(data.length > 0){
             return Container(
               height: 100,
               margin: const EdgeInsets.all(8),
@@ -73,7 +84,12 @@ class _myDashboardState extends State<myDashboard> {
                   ),
                 ]),
               
-            );
+            );}
+            else{
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
           }),
     );
   }
